@@ -15,44 +15,45 @@
                 <InputNumber @bind-Value="clientes.ClienteId" class="id-input"></InputNumber>
                 <button type="button" class="btn btn-dark oi oi-magnifying-glass" @onclick="Buscar"></button>
             </div>
-            <div>
-                <label>Nombres:</label>
-                <InputText @bind-Value="clientes.Nombres" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Nombres)" />
-                @if(nombreExistente)
-                {
-                    <p class="text-danger">Ya existe un Cliente con estos Nombres.</p>
-                }      
-            </div>
-            <div>
-                <label>Email:</label>
-                <InputText type="email" @bind-Value="clientes.Email" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Email)" />
-            </div>
-            <div>
-                <label>RNC:</label>
-                <InputText @bind-Value="clientes.Rnc" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Rnc)" />
-                @if(rncExistente)
-                {
-                    <p class="text-danger">Ya existe un Cliente con este RNC.</p>
-
-                }
-            </div>
-            <div>
-                <label>Direccion:</label>
-                <InputText @bind-Value="clientes.Direccion" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Direccion)" />
-            </div>
-            <div>
-                <label>Telefono:</label>
-                <InputText @bind-Value="clientes.Telefono" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Telefono)" />
-            </div>
-            <div>
-                <label>Celular:</label>
-                <InputText @bind-Value="clientes.Celular" class="form-control"></InputText>
-                <ValidationMessage For="@(() => clientes.Celular)" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nombres:</label>
+                    <InputText @bind-Value="clientes.Nombres" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Nombres)" />
+                    @if (nombreExistente)
+                    {
+                        <p class="text-danger">Ya existe un Cliente con estos Nombres.</p>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label>Email:</label>
+                    <InputText type="email" @bind-Value="clientes.Email" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Email)" />
+                </div>
+                <div class="col-md-6">
+                    <label>RNC:</label>
+                    <InputText @bind-Value="clientes.Rnc" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Rnc)" />
+                    @if (rncExistente)
+                    {
+                        <p class="text-danger">Ya existe un Cliente con este RNC.</p>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label>Direccion:</label>
+                    <InputText @bind-Value="clientes.Direccion" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Direccion)" />
+                </div>
+                <div class="col-md-6">
+                    <label>Telefono:</label>
+                    <InputText @bind-Value="clientes.Telefono" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Telefono)" />
+                </div>
+                <div class="col-md-6">
+                    <label>Celular:</label>
+                    <InputText @bind-Value="clientes.Celular" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => clientes.Celular)" />
+                </div>
             </div>
         </div>
         <div class="card-footer">
