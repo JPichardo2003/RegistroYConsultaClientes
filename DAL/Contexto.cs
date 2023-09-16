@@ -7,6 +7,6 @@ namespace ClientesApp.DAL
     {
         public Contexto(DbContextOptions<Contexto> options)
             : base(options) { }
-        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Clientes> Clientes { get; set; }
     }
 }
