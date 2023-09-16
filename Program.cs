@@ -14,7 +14,7 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 
 builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
 
-builder.Services.AddScoped<ClienteBLL>();
+builder.Services.AddScoped<ClientesBLL>();
 
 var app = builder.Build();
 
