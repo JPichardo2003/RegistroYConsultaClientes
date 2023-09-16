@@ -1,5 +1,5 @@
 ﻿@page "/ConsultaClientes"
-@inject ClienteBLL clientesBLL
+@inject ClientesBLL clientesBLL
 
 <label>Filtrar por ID</label>
 <div class="input-group filter-input">
@@ -43,9 +43,9 @@
 
 @code {
 
-    public Cliente clientes { get; set; } = new Cliente();
+    public Clientes clientes { get; set; } = new Clientes();
     public int filtrar { get; set; }
-    public List<Cliente> ListaClientes { get; set; } = new List<Cliente>();
+    public List<Clientes> ListaClientes { get; set; } = new List<Clientes>();
 
     protected override void OnInitialized()
     {
