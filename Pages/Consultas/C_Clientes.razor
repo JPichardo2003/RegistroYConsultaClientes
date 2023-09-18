@@ -27,7 +27,7 @@
             @foreach (var item in ListaClientes)
             {
                 <tr>
-                    <td>@item.ClienteId</td>
+                    <td><a href="RegistroCliente/@item.ClienteId">@item.ClienteId</a></td>
                     <td>@item.Email</td>
                     <td>@item.Nombres</td>
                     <td>@item.Celular</td>
