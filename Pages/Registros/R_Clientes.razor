@@ -98,16 +98,15 @@
     {
         nombreExistente = false;
         rncExistente = false;
-
         var ClienteExistente = clientesBLL.Listar(c => c.Nombres == clientes.Nombres).Any();
         var _ClienteExistente = clientesBLL.Listar(c => c.Rnc == clientes.Rnc).Any();
 
-        if (ClienteExistente != false && clientesBLL.Listar(c => c.ClienteId != clientes.ClienteId).Any())
+        if (clientesBLL.Listar(c => c.Nombres == clientes.Nombres && c.ClienteId != clientes.ClienteId).Any())
         {
             nombreExistente = true;
             return false;
         }
-        if (_ClienteExistente != false && clientesBLL.Listar(c => c.ClienteId != clientes.ClienteId).Any())
+        if (clientesBLL.Listar(c => c.Rnc == clientes.Rnc && c.ClienteId != clientes.ClienteId).Any())
         {
             rncExistente = true;
             return false;
