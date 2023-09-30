@@ -2,6 +2,7 @@
 @page "/RegistroCliente/{ClienteId:int}";
 
 @inject ClientesBLL clientesBLL;
+@inject NotificationService notificationService
 
 <EditForm Model="clientes" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -68,6 +69,7 @@
     [Parameter]
     public int ClienteId { get; set; }
     public Clientes clientes = new Clientes();
+
     private bool nombreExistente = false;
     private bool rncExistente = false;
 
@@ -90,29 +92,23 @@
         }
         else
         {
+            var mensaje = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "No se Encontro Ningun Cliente",
+                    Duration = 4_000
+                };
+            notificationService.Notify(mensaje);
             //para si no encuentra clientes limpie la pantalla
             this.Nuevo();
         }
     }
     public bool Validar()
     {
-        nombreExistente = false;
-        rncExistente = false;
-        var ClienteExistente = clientesBLL.Listar(c => c.Nombres == clientes.Nombres).Any();
-        var _ClienteExistente = clientesBLL.Listar(c => c.Rnc == clientes.Rnc).Any();
-
-        if (clientesBLL.Listar(c => c.Nombres == clientes.Nombres && c.ClienteId != clientes.ClienteId).Any())
-        {
-            nombreExistente = true;
-            return false;
-        }
-        if (clientesBLL.Listar(c => c.Rnc == clientes.Rnc && c.ClienteId != clientes.ClienteId).Any())
-        {
-            rncExistente = true;
-            return false;
-        }
-
-        return !string.IsNullOrEmpty(clientes.Nombres) && !string.IsNullOrEmpty(clientes.Rnc);
+        nombreExistente = clientesBLL.Listar(c => c.Nombres == clientes.Nombres && c.ClienteId != clientes.ClienteId).Any();
+        rncExistente = clientesBLL.Listar(c => c.Rnc == clientes.Rnc && c.ClienteId != clientes.ClienteId).Any();
+        return nombreExistente || rncExistente;
     }
     public void Nuevo()
     {
@@ -122,14 +118,45 @@
     }
     public void Guardar()
     {
-        if (Validar() && clientesBLL.Guardar(this.clientes))
+        if (Validar())
         {
-            Nuevo();
+            var mensaje = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Validacion",
+                    Detail = "Error Revise los Campos",
+                    Duration = 4_000
+                };
+            notificationService.Notify(mensaje);
+            return;
+        }
+        var guardo = clientesBLL.Guardar(this.clientes);
+        if (guardo)
+        {
+            var mensaje = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Validacion",
+                    Detail = "Cliente Guardado con Exito",
+                    Duration = 4_000
+                };
+            notificationService.Notify(mensaje);
+            this.Nuevo();
         }
     }
     public void Eliminar()
     {
-        clientesBLL.Eliminar(this.clientes);
+        if (clientesBLL.Eliminar(this.clientes))
+        {
+            var mensaje = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Validacion",
+                    Detail = "Cliente Eliminado con Exito",
+                    Duration = 4_000
+                };
+            notificationService.Notify(mensaje);
+        }
         Nuevo();
     }
 }
